@@ -1,0 +1,18 @@
+version: '3'
+services:
+  php:
+    container_name: ubuntu-php
+    build: php/.
+    image: php-compose
+    volumes:
+      - /home/moises/docker/projetos-php/:/var/www/html
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    environment:
+      - DISPLAY=unix$DISPLAY
+    devices:
+      - /dev/dri 
+    command: ["su", "user", "-p", "-c", "/usr/share/code/code . --extensions-dir /var/vscode-ext"]
+  # mysql:
+  #   container_name: ubuntu-mysql
+  #   build: mysql/.
+  #   image: mysql-compose
