@@ -1,0 +1,8 @@
+docker run -ti -v /home/moises/Downloads:"$HOME"/Downloads \
+               -v /tmp/.X11-unix:/tmp/.X11-unix \
+               -v "$PWD":/var/www/html \
+               -e DISPLAY=unix$DISPLAY \
+               --device /dev/dri \
+               --name vscode \
+               --net="host" \
+               ubuntu:php

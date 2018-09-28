@@ -15,6 +15,10 @@ RUN apt install mysql-server-5.6 -y
 RUN apt install mysql-client-5.6 -y
 RUN service mysql stop
 RUN mysqld_safe --skip-grant-tables &
+RUN mysql -u root \
+		  -D mysql \
+		  -e "update user set password=PASSWORD('root') where User='root'; flush privileges;"
+
 RUN /etc/init.d/mysql restart
 
 # Criando Ambiente para Usuario
