@@ -1,5 +1,6 @@
 #Ubuntu Php 5
 FROM ubuntu:14.04
+EXPOSE 22
 EXPOSE 80
 EXPOSE 9000
 EXPOSE 8000
@@ -11,7 +12,8 @@ RUN apt-get install build-essential -y
 RUN apt-get install vim -y 
 RUN apt-get install libX11-xcb1 -y
 RUN apt-get install libxss1 -y
-RUN apt-get install wget -y
+RUN apt-get install wget -y 
+RUN apt-get install ssh -y
 RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install gdebi -y
@@ -44,3 +46,6 @@ RUN gdebi -n vscode.deb
 
 # Opcional
 #RUN rm -rf vscode.deb
+
+# Configuracao SSH
+RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"

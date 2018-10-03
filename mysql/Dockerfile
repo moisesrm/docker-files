@@ -1,5 +1,6 @@
 #Ubuntu Mysql
 FROM ubuntu:14.04
+EXPOSE 22
 EXPOSE 3306
 
 # Configuracao inicial
@@ -7,21 +8,27 @@ RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install build-essential -y 
 RUN apt-get install vim -y 
+RUN apt-get install ssh -y 
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
 # Instalacao MySql 5.6
 RUN apt install mysql-server-5.6 -y
 RUN apt install mysql-client-5.6 -y
-RUN service mysql stop
-RUN mysqld_safe --skip-grant-tables &
-RUN mysql -u root \
-		  -D mysql \
-		  -e "update user set password=PASSWORD('root') where User='root'; flush privileges;"
-
-RUN /etc/init.d/mysql restart
 
 # Criando Ambiente para Usuario
 ENV HOME /home/user
 RUN useradd --create-home --home-dir $HOME user \
 	&& chown -R user:user $HOME
+
+# Configuracao MySql 5.6
+RUN service mysql stop
+RUN mysqld_safe --skip-grant-tables &
+RUN service mysql start \
+    && mysql -u root \
+		  -D mysql \
+		  -e "update user set password=PASSWORD('root') where User='root'; flush privileges;"
+RUN /etc/init.d/mysql restart
+
+# Configuracao SSH
+RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"
