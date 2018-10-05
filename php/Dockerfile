@@ -33,7 +33,8 @@ RUN cd ~
 ENV HOME /home/user
 ENV VSCODEEXT /var/vscode-ext
 
-RUN useradd --create-home --home-dir $HOME user \
+RUN useradd -ms /bin/bash user \
+    && echo 'user:user.,' |chpasswd \
     && mkdir /var/www/html -p \
     && mkdir $VSCODEEXT -p \
 	&& chown -R user:user $HOME /var/www/html $VSCODEEXT

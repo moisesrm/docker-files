@@ -23,9 +23,9 @@ RUN useradd -ms /bin/bash user \
     && adduser user sudo
 
 # Configuracao MySql 5.6
-RUN service mysql stop \
-    && mysqld_safe --skip-grant-tables \
-    && service mysql start \
+RUN service mysql stop
+RUN echo -ne '\n' | mysqld_safe --skip-grant-tables &
+RUN service mysql start \
     && mysql -u root \
 		  -D mysql \
 		  -e "update user set password=PASSWORD('root') where User='root'; flush privileges;"

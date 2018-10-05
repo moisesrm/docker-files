@@ -16,4 +16,4 @@ services:
     container_name: ubuntu-mysql
     build: mysql/.
     image: mysql-compose
-    command: ["/usr/sbin/sshd", "-D"]
+    command: ["service", "ssh", "start"]
