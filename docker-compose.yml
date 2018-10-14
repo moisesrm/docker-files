@@ -11,9 +11,7 @@ services:
       - DISPLAY=unix$DISPLAY
     devices:
       - /dev/dri 
-    command: ["su", "user", "-p", "-c", "/usr/share/code/code . --extensions-dir /var/vscode-ext"]
   mysql:
     container_name: ubuntu-mysql
     build: mysql/.
     image: mysql-compose
-    command: ["service", "ssh", "start"]

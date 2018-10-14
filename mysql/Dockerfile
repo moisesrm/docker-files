@@ -8,7 +8,7 @@ RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install build-essential -y 
 RUN apt-get install vim -y 
-RUN apt-get install openssh-server -y 
+RUN apt-get install ssh -y 
 RUN apt-get update -y
 RUN apt-get upgrade -y
 
@@ -23,13 +23,16 @@ RUN useradd -ms /bin/bash user \
     && adduser user sudo
 
 # Configuracao MySql 5.6
-RUN service mysql stop
-RUN echo -ne '\n' | mysqld_safe --skip-grant-tables &
-RUN service mysql start \
+RUN service mysql stop \
+    && echo -ne '\n' | (mysqld_safe --skip-grant-tables &) \
+    && service mysql start \
     && mysql -u root \
-		  -D mysql \
-		  -e "update user set password=PASSWORD('root') where User='root'; flush privileges;"
-RUN /etc/init.d/mysql restart
+             -D mysql \
+             -e "UPDATE user SET password=PASSWORD('root') WHERE User='root'; flush privileges;" \
+    && /etc/init.d/mysql restart
 
 # Configuracao SSH
 RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"
+COPY mysql-start.sh /home/user/
+RUN chmod 777 /home/user/mysql-start.sh
+CMD ["/home/user/mysql-start.sh"]

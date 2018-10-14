@@ -50,3 +50,6 @@ RUN gdebi -n vscode.deb
 
 # Configuracao SSH
 RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"
+COPY php-start.sh /home/user/
+RUN chmod 777 /home/user/php-start.sh
+CMD ["/home/user/php-start.sh"]
