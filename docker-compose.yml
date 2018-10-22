@@ -1,17 +1,28 @@
 version: '3'
 services:
-  php:
-    container_name: ubuntu-php
-    build: php/.
-    image: php-compose
+  # php:
+  #   container_name: php
+  #   build: php/.
+  #   image: php-compose
+  #   volumes:
+  #     - /home/moises/docker/projetos-php/:/var/www/html
+  #     - /tmp/.X11-unix:/tmp/.X11-unix
+  #   environment:
+  #     - DISPLAY=unix$DISPLAY
+  #   devices:
+  #     - /dev/dri 
+  mysql:
+    container_name: mysql
+    build: mysql/.
+    image: mysql-compose
+  node:
+    container_name: node
+    build: node/.
+    image: node-compose
     volumes:
-      - /home/moises/docker/projetos-php/:/var/www/html
+      - /home/moises/docker/projetos-node/:/home/user
       - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
       - DISPLAY=unix$DISPLAY
     devices:
       - /dev/dri 
-  mysql:
-    container_name: ubuntu-mysql
-    build: mysql/.
-    image: mysql-compose

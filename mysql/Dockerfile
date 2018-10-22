@@ -4,17 +4,16 @@ EXPOSE 22
 EXPOSE 3306
 
 # Configuracao inicial
-RUN apt-get update -y
-RUN apt-get upgrade -y
-RUN apt-get install build-essential -y 
-RUN apt-get install vim -y 
-RUN apt-get install ssh -y 
-RUN apt-get update -y
-RUN apt-get upgrade -y
+RUN apt-get update -y \
+    && apt-get upgrade -y \
+    && apt-get install build-essential -y  \
+    && apt-get install vim -y  \
+    && apt-get update -y \
+    && apt-get upgrade -y
 
 # Instalacao MySql 5.6
-RUN apt install mysql-server-5.6 -y
-RUN apt install mysql-client-5.6 -y
+RUN apt install mysql-server-5.6 -y \
+    && apt install mysql-client-5.6 -y
 
 # Criando Ambiente para Usuario
 ENV HOME /home/user
@@ -31,8 +30,10 @@ RUN service mysql stop \
              -e "UPDATE user SET password=PASSWORD('root') WHERE User='root'; flush privileges;" \
     && /etc/init.d/mysql restart
 
+
 # Configuracao SSH
-RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"
+# RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"
+
 COPY mysql-start.sh /home/user/
 RUN chmod 777 /home/user/mysql-start.sh
 CMD ["/home/user/mysql-start.sh"]

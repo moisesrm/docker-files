@@ -1,4 +1,6 @@
 #!/bin/bash
 
-sudo service mysql start &
-sudo service ssh start -D
+service mysql start -D
+while :; do
+    echo ""
+done
