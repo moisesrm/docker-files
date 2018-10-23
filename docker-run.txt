@@ -6,3 +6,12 @@ docker run -ti -v /home/moises/Downloads:"$HOME"/Downloads \
                --name vscode \
                --net="host" \
                ubuntu:php
+
+
+
+docker run -ti -v /home/moises/Downloads:"$HOME"/Downloads \
+               -v /tmp/.X11-unix:/tmp/.X11-unix \
+               -e DISPLAY=unix$DISPLAY \
+               --device /dev/dri \
+               --name teste \
+               node-compose

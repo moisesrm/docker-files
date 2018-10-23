@@ -11,10 +11,10 @@ services:
   #     - DISPLAY=unix$DISPLAY
   #   devices:
   #     - /dev/dri 
-  mysql:
-    container_name: mysql
-    build: mysql/.
-    image: mysql-compose
+  # mysql:
+  #   container_name: mysql
+  #   build: mysql/.
+  #   image: mysql-compose
   node:
     container_name: node
     build: node/.
@@ -25,4 +25,4 @@ services:
     environment:
       - DISPLAY=unix$DISPLAY
     devices:
-      - /dev/dri 
+      - /dev/dri

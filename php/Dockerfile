@@ -49,6 +49,6 @@ RUN su user -c "code --extensions-dir $VSCODEEXT --install-extension bmewburn.vs
 #RUN rm -rf vscode.deb
 #RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"
 
-COPY php-start.sh $HOME/
-RUN chmod 777 $HOME/php-start.sh
-CMD ["$HOME/php-start.sh"]
+COPY php-start.sh /home/user/
+RUN chmod 777 /home/user/php-start.sh
+CMD ["/home/user/php-start.sh"]
