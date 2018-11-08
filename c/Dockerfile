@@ -13,7 +13,8 @@ RUN apt-get update -y \
     && apt-get update -y \
     && apt-get upgrade -y \
     && apt-get install gdebi -y \
-    && apt-get install libcppunit-dev -y
+    && apt-get install libcppunit-dev -y \
+    && apt-get install sudo -y
 
 # Criando Ambiente para Usuario
 ENV HOME /home/user
@@ -23,7 +24,8 @@ RUN useradd -ms /bin/bash user \
     && echo 'user:user.,' |chpasswd \
     && mkdir /var/www/html -p \
     && mkdir $VSCODEEXT -p \
-	&& chown -R user:user $HOME /var/www/html $VSCODEEXT
+	&& chown -R user:user $HOME /var/www/html $VSCODEEXT \
+	&& adduser user sudo
 
 WORKDIR /var/www/html
 

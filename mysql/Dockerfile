@@ -9,7 +9,8 @@ RUN apt-get update -y \
     && apt-get install build-essential -y  \
     && apt-get install vim -y  \
     && apt-get update -y \
-    && apt-get upgrade -y
+    && apt-get upgrade -y \
+    && apt-get install sudo -y
 
 # Instalacao MySql 5.6
 RUN apt install mysql-server-5.6 -y \

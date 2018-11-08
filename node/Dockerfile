@@ -8,13 +8,13 @@ RUN apt-get update -y \
     && apt-get install build-essential -y  \
     && apt-get install vim -y  \
     && apt-get install curl -y  \
-    && apt-get update -y \
-    && apt-get upgrade -y \
     && apt-get install gdebi -y \
     && apt-get install wget -y  \
-    && apt-get install libasound2 -y
-    # && apt-get install libX11-xcb1 -y \
-    # && apt-get install libxss1 -y \
+    && apt-get install libasound2 -y \
+    && apt-get install npm -y \
+    && apt-get update -y \
+    && apt-get upgrade -y \
+    && apt-get install sudo -y 
 
 # Instalando Node e Vue
 RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
@@ -26,10 +26,13 @@ ENV VSCODEEXT /var/vscode-ext
 
 RUN useradd -ms /bin/bash user \
     && echo 'user:user.,' |chpasswd \
+    && mkdir $HOME/projetos -p \
     && mkdir $VSCODEEXT -p \
-	&& chown -R user:user $HOME $VSCODEEXT
+    && mkdir $HOME/npm -p \
+	&& chown -R user:user $HOME $VSCODEEXT $HOME/projetos $HOME/npm \
+	&& adduser user sudo
 
-WORKDIR $HOME
+WORKDIR $HOME/projetos
 
 # Instalando VSCode
 RUN wget "https://go.microsoft.com/fwlink/?LinkID=760868" -O vscode.deb
@@ -41,6 +44,6 @@ RUN su user -c "code --extensions-dir $VSCODEEXT --install-extension grogdunn.ne
 #RUN rm -rf vscode.deb
 #RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"
 
-COPY node-start.sh $HOME/
-RUN chmod 777 $HOME/node-start.sh
+COPY node-start.sh /home/user/
+RUN chmod 777 /home/user/node-start.sh
 CMD ["/home/user/node-start.sh"]

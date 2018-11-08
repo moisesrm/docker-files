@@ -1,7 +1,7 @@
 version: '3'
 services:
-  # php:
-  #   container_name: php
+  # php_5:
+  #   container_name: php_5.6
   #   build: php/.
   #   image: php-compose
   #   volumes:
@@ -15,14 +15,15 @@ services:
   #   container_name: mysql
   #   build: mysql/.
   #   image: mysql-compose
-  node:
+  node_js:
     container_name: node
     build: node/.
     image: node-compose
     volumes:
-      - /home/moises/docker/projetos-node/:/home/user
+      - /home/moises/docker/projetos-node/:/home/user/projetos
       - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
       - DISPLAY=unix$DISPLAY
     devices:
       - /dev/dri
+      - /dev/snd
