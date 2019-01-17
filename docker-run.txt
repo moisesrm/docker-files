@@ -15,3 +15,17 @@ docker run -ti -v /home/moises/Downloads:"$HOME"/Downloads \
                --device /dev/dri \
                --name teste \
                node-compose
+
+docker run -ti -v /tmp/.X11-unix:/tmp/.X11-unix \
+               -e DISPLAY=unix$DISPLAY \
+               --device /dev/dri \
+               --device /dev/snd \
+               --name teste \
+               ubuntu:18.04
+
+
+npm init
+
+
+# Configuracao SSH
+# RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"

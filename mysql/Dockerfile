@@ -18,7 +18,7 @@ RUN apt install mysql-server-5.6 -y \
 
 # Criando Ambiente para Usuario
 ENV HOME /home/user
-RUN useradd -ms /bin/bash user \
+RUN useradd -m -s /bin/bash user \
     && echo 'user:user.,' |chpasswd \
     && adduser user sudo
 

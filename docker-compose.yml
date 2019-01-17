@@ -27,3 +27,12 @@ services:
     devices:
       - /dev/dri
       - /dev/snd
+    links:
+      - mongo:mongo
+    depends_on: 
+      - mongo
+  mongo:
+    container_name: mongo
+    build: mongo/.
+    image: mongo-compose
+      

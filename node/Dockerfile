@@ -24,7 +24,7 @@ RUN apt install nodejs -y
 ENV HOME /home/user
 ENV VSCODEEXT /var/vscode-ext
 
-RUN useradd -ms /bin/bash user \
+RUN useradd -m -s /bin/bash user \
     && echo 'user:user.,' |chpasswd \
     && mkdir $HOME/projetos -p \
     && mkdir $VSCODEEXT -p \
@@ -43,6 +43,11 @@ RUN su user -c "code --extensions-dir $VSCODEEXT --install-extension grogdunn.ne
 # Opcional
 #RUN rm -rf vscode.deb
 #RUN su user -c "ssh-keygen -f $HOME/.ssh/id_rsa -t rsa -N 'user.,'"
+
+RUN apt-get purge -y --auto-remove wget \
+    && apt-get purge -y --auto-remove gdebi \
+    && apt-get purge -y --auto-remove curl
+
 
 COPY node-start.sh /home/user/
 RUN chmod 777 /home/user/node-start.sh

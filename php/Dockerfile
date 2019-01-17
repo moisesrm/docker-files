@@ -32,7 +32,7 @@ RUN echo "xdebug.remote_enable = 1" >> php.ini \
 ENV HOME /home/user
 ENV VSCODEEXT /var/vscode-ext
 
-RUN useradd -ms /bin/bash user \
+RUN useradd -m -s /bin/bash user \
     && echo 'user:user.,' |chpasswd \
     && mkdir /var/www/html -p \
     && mkdir $VSCODEEXT -p \
