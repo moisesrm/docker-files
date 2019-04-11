@@ -38,7 +38,7 @@ WORKDIR $HOME/projetos
 RUN wget "https://go.microsoft.com/fwlink/?LinkID=760868" -O vscode.deb
 RUN gdebi -n vscode.deb
 
-RUN su user -c "code --extensions-dir $VSCODEEXT --install-extension grogdunn.netbeans-keybindings --install-extension eamodio.gitlens --install-extension aaron-bond.better-comments --install-extension octref.vetur"
+RUN su user -c "code --extensions-dir $VSCODEEXT --install-extension grogdunn.netbeans-keybindings --install-extension eamodio.gitlens --install-extension aaron-bond.better-comments --install-extension hbenl.vscode-jasmine-test-adapter"
 
 # Opcional
 #RUN rm -rf vscode.deb
